@@ -37,10 +37,5 @@ public class TutoringDbContext : DbContext
         modelBuilder.ApplyConfiguration(new ScheduleConfiguration());
         modelBuilder.ApplyConfiguration(new BookingConfiguration());
         modelBuilder.ApplyConfiguration(new ReviewConfiguration());
-
-        modelBuilder.HasPostgresEnum<Enums.UserType>();
-        modelBuilder.HasPostgresEnum<Enums.SubjectCategory>();
-        modelBuilder.HasPostgresEnum<Enums.BookingFormat>();
-        modelBuilder.HasPostgresEnum<Enums.BookingStatus>();
     }
 }
