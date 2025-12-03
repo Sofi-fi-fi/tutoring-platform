@@ -12,7 +12,9 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
 		builder.ToTable("schedule");
 
 		builder.HasKey(s => s.ScheduleId);
-		builder.Property(s => s.ScheduleId).HasColumnName("schedule_id");
+		builder.Property(s => s.ScheduleId)
+			.HasColumnName("schedule_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(s => s.TutorId)
 			.HasColumnName("tutor_id")

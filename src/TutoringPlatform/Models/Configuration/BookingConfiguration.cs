@@ -12,7 +12,9 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 		builder.ToTable("booking");
 
 		builder.HasKey(b => b.BookingId);
-		builder.Property(b => b.BookingId).HasColumnName("booking_id");
+		builder.Property(b => b.BookingId)
+			.HasColumnName("booking_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(b => b.StudentId)
 			.HasColumnName("student_id")

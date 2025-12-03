@@ -12,7 +12,9 @@ public class TutorSubjectConfiguration : IEntityTypeConfiguration<TutorSubject>
 		builder.ToTable("tutor_subject");
 
 		builder.HasKey(ts => ts.TutorSubjectId);
-		builder.Property(ts => ts.TutorSubjectId).HasColumnName("tutor_subject_id");
+		builder.Property(ts => ts.TutorSubjectId)
+			.HasColumnName("tutor_subject_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(ts => ts.TutorId)
 			.HasColumnName("tutor_id")

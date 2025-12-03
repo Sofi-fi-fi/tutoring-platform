@@ -12,7 +12,9 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
 		builder.ToTable("city");
 
 		builder.HasKey(c => c.CityId);
-		builder.Property(c => c.CityId).HasColumnName("city_id");
+		builder.Property(c => c.CityId)
+			.HasColumnName("city_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(c => c.Name)
 			.HasColumnName("name")

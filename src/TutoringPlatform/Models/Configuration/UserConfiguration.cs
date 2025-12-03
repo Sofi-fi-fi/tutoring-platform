@@ -12,7 +12,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 		builder.ToTable("user");
 
 		builder.HasKey(u => u.UserId);
-		builder.Property(u => u.UserId).HasColumnName("user_id");
+		builder.Property(u => u.UserId)
+			.HasColumnName("user_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(u => u.FirstName)
 			.HasColumnName("first_name")

@@ -12,7 +12,9 @@ public class TeachingLevelConfiguration : IEntityTypeConfiguration<TeachingLevel
 		builder.ToTable("teaching_level");
 
 		builder.HasKey(tl => tl.LevelId);
-		builder.Property(tl => tl.LevelId).HasColumnName("level_id");
+		builder.Property(tl => tl.LevelId)
+			.HasColumnName("level_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(tl => tl.Name)
 			.HasColumnName("name")

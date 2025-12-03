@@ -12,7 +12,9 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 		builder.ToTable("review");
 
 		builder.HasKey(r => r.ReviewId);
-		builder.Property(r => r.ReviewId).HasColumnName("review_id");
+		builder.Property(r => r.ReviewId)
+			.HasColumnName("review_id")
+			.UseIdentityAlwaysColumn();
 
 		builder.Property(r => r.BookingId)
 			.HasColumnName("booking_id")
