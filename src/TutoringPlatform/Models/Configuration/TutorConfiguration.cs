@@ -19,15 +19,16 @@ public class TutorConfiguration : IEntityTypeConfiguration<Tutor>
 		builder.Property(t => t.YearsExperience)
 			.HasColumnName("years_experience")
 			.IsRequired()
-			.HasDefaultValue(0);
+			.HasDefaultValue((short)0);
 
 		builder.Property(t => t.Education)
 			.HasColumnName("education")
+			.HasColumnType("text")
 			.IsRequired();
 
 		builder.Property(t => t.AboutMe)
 			.HasColumnName("about_me")
-			.HasMaxLength(2000);
+			.HasColumnType("text");
 
 		builder.Property(t => t.OnlineAvailable)
 			.HasColumnName("online_available")
@@ -41,7 +42,7 @@ public class TutorConfiguration : IEntityTypeConfiguration<Tutor>
 
 		builder.Property(t => t.Address)
 			.HasColumnName("address")
-			.HasMaxLength(500);
+			.HasColumnType("text");
 
 		builder.HasOne(t => t.City)
 			.WithMany(c => c.Tutors)

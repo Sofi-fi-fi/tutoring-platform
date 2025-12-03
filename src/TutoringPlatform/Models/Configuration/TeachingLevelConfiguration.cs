@@ -29,7 +29,7 @@ public class TeachingLevelConfiguration : IEntityTypeConfiguration<TeachingLevel
 
 		builder.Property(tl => tl.Description)
 			.HasColumnName("description")
-			.HasMaxLength(300);
+			.HasColumnType("text");
 
 		builder.HasMany(tl => tl.TutorSubjects)
 			.WithOne(ts => ts.TeachingLevel)

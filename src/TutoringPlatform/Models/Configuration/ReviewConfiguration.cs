@@ -26,7 +26,7 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 
 		builder.Property(r => r.Comment)
 			.HasColumnName("comment")
-			.HasMaxLength(1500);
+			.HasColumnType("text");
 
 		builder.Property(r => r.CreatedAt)
 			.HasColumnName("created_at")

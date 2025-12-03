@@ -27,7 +27,7 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 
 		builder.Property(s => s.Description)
 			.HasColumnName("description")
-			.HasMaxLength(500);
+			.HasColumnType("text");
 
 		builder.HasMany(s => s.TutorSubjects)
 			.WithOne(ts => ts.Subject)
