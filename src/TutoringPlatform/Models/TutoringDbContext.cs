@@ -5,13 +5,8 @@ using TutoringPlatform.Models.Entities;
 
 namespace TutoringPlatform.Models;
 
-public class TutoringDbContext : DbContext
+public class TutoringDbContext(DbContextOptions<TutoringDbContext> options) : DbContext(options)
 {
-    public TutoringDbContext(DbContextOptions<TutoringDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<City> Cities { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Student> Students { get; set; }
