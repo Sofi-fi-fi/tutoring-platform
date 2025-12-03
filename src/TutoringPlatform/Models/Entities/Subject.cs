@@ -6,7 +6,7 @@ namespace TutoringPlatform.Models.Entities;
 public class Subject
 {
 	public int SubjectId { get; set; }
-	public string Name { get; set; } = null!;
+	public string Name { get; set; } = string.Empty;
 	public SubjectCategory Category { get; set; }
 	public string? Description { get; set; }
 

@@ -7,7 +7,7 @@ public class Tutor
 	public int TutorId { get; set; }
 	public int? CityId { get; set; }
 	public short YearsExperience { get; set; } = 0;
-	public string Education { get; set; } = null!;
+	public string Education { get; set; } = string.Empty;
 	public string? AboutMe { get; set; }
 	public bool OnlineAvailable { get; set; } = true;
 	public bool OfflineAvailable { get; set; } = true;
