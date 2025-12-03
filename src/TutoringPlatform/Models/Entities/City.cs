@@ -1,6 +1,5 @@
 using System;
 
-
 namespace TutoringPlatform.Models.Entities;
 
 public class City
