@@ -11,7 +11,7 @@ public class Schedule
 	public TimeOnly StartTime { get; set; }
 	public TimeOnly EndTime { get; set; }
 	public bool IsAvailable { get; set; } = true;
-	public DateTime CreatedAt { get; set; }
+	public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 	public virtual Tutor Tutor { get; set; } = null!;
 	public virtual Booking? Booking { get; set; }

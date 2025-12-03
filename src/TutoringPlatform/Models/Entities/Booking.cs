@@ -11,7 +11,7 @@ public class Booking
 	public int ScheduleId { get; set; }
 	public BookingFormat Format { get; set; }
 	public BookingStatus Status { get; set; } = BookingStatus.Pending;
-	public DateTime CreatedAt { get; set; }
+	public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 	public virtual Student Student { get; set; } = null!; 
 	public virtual TutorSubject TutorSubject { get; set; } = null!;

@@ -13,7 +13,7 @@ public class User
 	public string? Phone { get; set; } 
 	public UserType UserType { get; set; }
 	public DateTime? DateOfBirth { get; set; }
-	public DateTime RegistrationDate { get; set; }
+	public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
 
 	public virtual Student? Student { get; set; }
 	public virtual Tutor? Tutor { get; set; }
