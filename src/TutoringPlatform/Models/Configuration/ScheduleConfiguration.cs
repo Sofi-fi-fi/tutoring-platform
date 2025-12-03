@@ -47,6 +47,7 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
 
 		builder.HasOne(s => s.Booking)
 			.WithOne(b => b.Schedule)
-			.HasForeignKey<Booking>(b => b.ScheduleId);
+			.HasForeignKey<Booking>(b => b.ScheduleId)
+			.OnDelete(DeleteBehavior.Cascade);
 	}
 }
