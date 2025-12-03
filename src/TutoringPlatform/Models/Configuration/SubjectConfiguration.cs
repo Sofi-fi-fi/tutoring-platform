@@ -23,6 +23,7 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 
 		builder.Property(s => s.Category)
 			.HasColumnName("category")
+			.HasConversion<string>()
 			.IsRequired();
 
 		builder.Property(s => s.Description)

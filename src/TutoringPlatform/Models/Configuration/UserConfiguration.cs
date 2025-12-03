@@ -42,6 +42,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
 		builder.Property(u => u.UserType)
 			.HasColumnName("user_type")
+			.HasConversion<string>()
 			.IsRequired();
 
 		builder.Property(u => u.DateOfBirth)
