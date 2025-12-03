@@ -49,5 +49,11 @@ public class TutorConfiguration : IEntityTypeConfiguration<Tutor>
 			.HasForeignKey(t => t.CityId)
 			.HasConstraintName("tutor_city_fk")
 			.OnDelete(DeleteBehavior.SetNull);
+
+		builder.HasOne(t => t.User)
+			.WithOne(u => u.Tutor)
+			.HasForeignKey<Tutor>(t => t.TutorId)
+			.HasConstraintName("tutor_user_fk")
+			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

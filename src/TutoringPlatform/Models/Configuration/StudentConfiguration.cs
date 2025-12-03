@@ -22,5 +22,11 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
 			.HasForeignKey(s => s.CityId)
 			.HasConstraintName("student_city_fk")
 			.OnDelete(DeleteBehavior.SetNull);
+
+		builder.HasOne(s => s.User)
+			.WithOne(u => u.Student)
+			.HasForeignKey<Student>(s => s.StudentId)
+			.HasConstraintName("student_user_fk")
+			.OnDelete(DeleteBehavior.Cascade);
 	}
 }
