@@ -45,9 +45,19 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 			.HasColumnName("created_at")
 			.HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-		builder.HasOne(b => b.Review)
-			.WithOne(r => r.Booking)
-			.HasForeignKey<Review>(r => r.BookingId)
+		builder.HasOne(b => b.Student)
+			.WithMany(s => s.Bookings)
+			.HasForeignKey(b => b.StudentId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.HasOne(b => b.TutorSubject)
+			.WithMany(ts => ts.Bookings)
+			.HasForeignKey(b => b.TutorSubjectId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.HasOne(b => b.Schedule)
+			.WithOne(s => s.Booking)
+			.HasForeignKey<Booking>(b => b.ScheduleId)
 			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

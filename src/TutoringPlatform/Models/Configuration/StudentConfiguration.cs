@@ -22,10 +22,5 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
 			.HasForeignKey(s => s.CityId)
 			.HasConstraintName("student_city_fk")
 			.OnDelete(DeleteBehavior.SetNull);
-
-		builder.HasMany(s => s.Bookings)
-			.WithOne(b => b.Student)
-			.HasForeignKey(b => b.StudentId)
-			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

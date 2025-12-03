@@ -32,10 +32,5 @@ public class TeachingLevelConfiguration : IEntityTypeConfiguration<TeachingLevel
 		builder.Property(tl => tl.Description)
 			.HasColumnName("description")
 			.HasColumnType("text");
-
-		builder.HasMany(tl => tl.TutorSubjects)
-			.WithOne(ts => ts.TeachingLevel)
-			.HasForeignKey(ts => ts.LevelId)
-			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

@@ -31,10 +31,5 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 		builder.Property(s => s.Description)
 			.HasColumnName("description")
 			.HasColumnType("text");
-
-		builder.HasMany(s => s.TutorSubjects)
-			.WithOne(ts => ts.Subject)
-			.HasForeignKey(ts => ts.SubjectId)
-			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

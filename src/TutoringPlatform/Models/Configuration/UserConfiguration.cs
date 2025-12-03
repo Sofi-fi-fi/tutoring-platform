@@ -53,15 +53,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 		builder.Property(u => u.RegistrationDate)
 			.HasColumnName("registration_date")
 			.HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-		builder.HasOne(u => u.Student)
-			.WithOne(s => s.User)
-			.HasForeignKey<Student>(s => s.StudentId)
-			.OnDelete(DeleteBehavior.Cascade);
-
-		builder.HasOne(u => u.Tutor)
-			.WithOne(t => t.User)
-			.HasForeignKey<Tutor>(t => t.TutorId)
-			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

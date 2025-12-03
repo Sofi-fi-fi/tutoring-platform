@@ -45,9 +45,9 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
 			.IsUnique()
 			.HasDatabaseName("schedule_unique_slot");
 
-		builder.HasOne(s => s.Booking)
-			.WithOne(b => b.Schedule)
-			.HasForeignKey<Booking>(b => b.ScheduleId)
+		builder.HasOne(s => s.Tutor)
+			.WithMany(t => t.Schedules)
+			.HasForeignKey(s => s.TutorId)
 			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

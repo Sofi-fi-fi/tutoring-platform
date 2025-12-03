@@ -37,9 +37,19 @@ public class TutorSubjectConfiguration : IEntityTypeConfiguration<TutorSubject>
 			.IsUnique()
 			.HasDatabaseName("ts_unique_combination");
 
-		builder.HasMany(ts => ts.Bookings)
-			.WithOne(b => b.TutorSubject)
-			.HasForeignKey(b => b.TutorSubjectId)
+		builder.HasOne(ts => ts.Tutor)
+			.WithMany(t => t.TutorSubjects)
+			.HasForeignKey(ts => ts.TutorId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.HasOne(ts => ts.Subject)
+			.WithMany(s => s.TutorSubjects)
+			.HasForeignKey(ts => ts.SubjectId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.HasOne(ts => ts.TeachingLevel)
+			.WithMany(l => l.TutorSubjects)
+			.HasForeignKey(ts => ts.LevelId)
 			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

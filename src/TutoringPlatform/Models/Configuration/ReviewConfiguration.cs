@@ -38,5 +38,10 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 			.HasColumnName("is_anonymous")
 			.IsRequired()
 			.HasDefaultValue(false);
+
+		builder.HasOne(r => r.Booking)
+			.WithOne(b => b.Review)
+			.HasForeignKey<Review>(r => r.BookingId)
+			.OnDelete(DeleteBehavior.Cascade);
 	}
 }
