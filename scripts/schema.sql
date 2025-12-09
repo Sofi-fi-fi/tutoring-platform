@@ -4,9 +4,6 @@ $$
         IF NOT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'user_type') THEN
             CREATE TYPE user_type AS ENUM ('student', 'tutor');
 		END IF;
-		IF NOT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'subject_category') THEN
-			CREATE TYPE subject_category AS ENUM ('ExactSciences', 'NaturalSciences', 'Humanities', 'ForeignLanguages', 'Arts');
-		END IF;    
 		IF NOT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'booking_format') THEN
             CREATE TYPE booking_format AS ENUM ('online', 'offline');
         END IF;
@@ -22,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "city"
     city_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name CHARACTER VARYING(100) NOT NULL,
     region CHARACTER VARYING(100),
-    country CHARACTER VARYING(100) NOT NULL DEFAULT 'Ukraine',
+    country CHARACTER VARYING(100) NOT NULL DEFAULT 'Україна',
 
     CONSTRAINT city_unique_location
         UNIQUE (name, region, country)
@@ -32,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "subject"
 (
     subject_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name CHARACTER VARYING(100) NOT NULL UNIQUE,
-    category subject_category NOT NULL,
+    category CHARACTER VARYING(100) NOT NULL,
     description TEXT
 );
 
@@ -51,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "user"
     last_name CHARACTER VARYING(100) NOT NULL,
     email CHARACTER VARYING(255) NOT NULL UNIQUE,
     password_hash CHARACTER VARYING(255) NOT NULL,
-    phone CHARACTER VARYING(20),
+    phone CHARACTER VARYING(20) UNIQUE,
     user_type user_type NOT NULL,
     date_of_birth DATE,
     registration_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
