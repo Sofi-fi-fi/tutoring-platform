@@ -25,7 +25,7 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 
 		builder.Property(s => s.Category)
 			.HasColumnName("category")
-			.HasConversion<string>()
+			.HasMaxLength(100)
 			.IsRequired();
 
 		builder.Property(s => s.Description)
