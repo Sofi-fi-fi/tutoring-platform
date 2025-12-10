@@ -1,5 +1,4 @@
 using TutoringPlatform.Models;
-using TutoringPlatform.Models.Enums;
 using TutoringPlatform.Models.Entities;
 using TutoringPlatform.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +13,7 @@ public class SubjectRepository(TutoringDbContext context) : Repository<Subject>(
             .FirstOrDefaultAsync(s => s.Name == name);
     }
 
-    public async Task<IEnumerable<Subject>> GetByCategoryAsync(SubjectCategory category)
+    public async Task<IEnumerable<Subject>> GetByCategoryAsync(string category)
     {
         return await _dbSet
             .Where(s => s.Category == category)
