@@ -1,7 +1,7 @@
-using System;
-using Microsoft.EntityFrameworkCore;
 using TutoringPlatform.Models.Configuration;
 using TutoringPlatform.Models.Entities;
+using TutoringPlatform.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace TutoringPlatform.Models;
 
@@ -21,6 +21,10 @@ public class TutoringDbContext(DbContextOptions<TutoringDbContext> options) : Db
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.HasPostgresEnum<UserType>();
+        modelBuilder.HasPostgresEnum<BookingFormat>();
+        modelBuilder.HasPostgresEnum<BookingStatus>();
 
         modelBuilder.ApplyConfiguration(new CityConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
