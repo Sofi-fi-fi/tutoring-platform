@@ -32,12 +32,10 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 
 		builder.Property(b => b.Format)
 			.HasColumnName("format")
-			.HasConversion<string>()
 			.IsRequired();
 
 		builder.Property(b => b.Status)
 			.HasColumnName("status")
-			.HasConversion<string>()
 			.IsRequired()
 			.HasDefaultValue(Enums.BookingStatus.Pending);
 

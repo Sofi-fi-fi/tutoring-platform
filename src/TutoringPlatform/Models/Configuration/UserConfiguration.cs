@@ -42,9 +42,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 			.HasColumnName("phone")
 			.HasMaxLength(20);
 
+		builder.HasIndex(u => u.Phone).IsUnique();
+
 		builder.Property(u => u.UserType)
 			.HasColumnName("user_type")
-			.HasConversion<string>()
 			.IsRequired();
 
 		builder.Property(u => u.DateOfBirth)
