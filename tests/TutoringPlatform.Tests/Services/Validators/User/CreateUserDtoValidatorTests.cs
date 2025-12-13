@@ -406,7 +406,7 @@ public class CreateUserDtoValidatorTests
 	#region Complete Object Tests
 
 	[Fact]
-	public void Validate_WhenAllFieldsValid_ShouldNotHaveAnyValidationErrors()
+	public void Validate_WhenAllFieldsValid_ResultOk()
 	{
 		var model = new CreateUserDto
 		{
@@ -423,7 +423,7 @@ public class CreateUserDtoValidatorTests
 	}
 
 	[Fact]
-	public void Validate_WhenMultipleFieldsInvalid_ShouldHaveMultipleValidationErrors()
+	public void Validate_WhenMultipleFieldsInvalid_ResultMultipleErrors()
 	{
 		var model = new CreateUserDto
 		{
