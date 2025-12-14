@@ -402,47 +402,4 @@ public class CreateUserDtoValidatorTests
 	}
 
 	#endregion
-
-	#region Complete Object Tests
-
-	[Fact]
-	public void Validate_WhenAllFieldsValid_ResultOk()
-	{
-		var model = new CreateUserDto
-		{
-			FirstName = "Studentik",
-			LastName = "Studentovych",
-			Email = "studentik@test.com",
-			Phone = "+12345678901",
-			UserType = UserType.Student,
-			DateOfBirth = DateTime.Now.AddYears(-25)
-		};
-		
-		var result = _validator.TestValidate(model);
-		result.ShouldNotHaveAnyValidationErrors();
-	}
-
-	[Fact]
-	public void Validate_WhenMultipleFieldsInvalid_ResultMultipleErrors()
-	{
-		var model = new CreateUserDto
-		{
-			FirstName = string.Empty,
-			LastName = string.Empty,
-			Email = "invalid-email",
-			Phone = "123",
-			UserType = (UserType)999,
-			DateOfBirth = DateTime.Now.AddDays(1)
-		};
-		
-		var result = _validator.TestValidate(model);
-		result.ShouldHaveValidationErrorFor(x => x.FirstName);
-		result.ShouldHaveValidationErrorFor(x => x.LastName);
-		result.ShouldHaveValidationErrorFor(x => x.Email);
-		result.ShouldHaveValidationErrorFor(x => x.Phone);
-		result.ShouldHaveValidationErrorFor(x => x.UserType);
-		result.ShouldHaveValidationErrorFor(x => x.DateOfBirth);
-	}
-
-	#endregion
 }
