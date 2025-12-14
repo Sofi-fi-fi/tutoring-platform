@@ -7,6 +7,10 @@ public class CreateTutordtovalidator : AbstractValidator<CreateTutorDto>
 {
 	public CreateTutordtovalidator()
 	{
+		RuleFor(field => field.User)
+			.NotNull().WithMessage("User is required")
+			.SetValidator(new User.CreateUserDtoValidator());
+			
 		RuleFor(field => field.CityId)
 			.GreaterThan(0).When(x => x.CityId.HasValue)
 			.WithMessage("City ID must be a positive number");
