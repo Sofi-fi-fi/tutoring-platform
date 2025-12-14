@@ -1,7 +1,10 @@
+using TutoringPlatform.Services.DTOs.User;
+
 namespace TutoringPlatform.Services.DTOs.Tutor;
 
 public class CreateTutorDto
 {
+	public CreateUserDto User { get; set; } = null!;
 	public int? CityId { get; set; }
 	public short YearsExperience { get; set; }
 	public string Education { get; set; } = string.Empty;

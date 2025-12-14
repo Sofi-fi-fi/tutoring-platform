@@ -1,3 +1,5 @@
+using TutoringPlatform.Services.DTOs.User;
+
 namespace TutoringPlatform.Services.DTOs.Tutor;
 
 public class TutorDto
@@ -10,4 +12,5 @@ public class TutorDto
 	public bool OnlineAvailable { get; set; }
 	public bool OfflineAvailable { get; set; }
 	public string? Address { get; set; }
+	public UserDto User { get; set; } = null!;
 }
