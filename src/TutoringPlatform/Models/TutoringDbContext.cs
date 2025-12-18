@@ -22,9 +22,12 @@ public class TutoringDbContext(DbContextOptions<TutoringDbContext> options) : Db
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasPostgresEnum<UserType>();
-        modelBuilder.HasPostgresEnum<BookingFormat>();
-        modelBuilder.HasPostgresEnum<BookingStatus>();
+        if (Database.IsNpgsql())
+        {
+            modelBuilder.HasPostgresEnum<UserType>();
+            modelBuilder.HasPostgresEnum<BookingFormat>();
+            modelBuilder.HasPostgresEnum<BookingStatus>();
+        }
 
         modelBuilder.ApplyConfiguration(new CityConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());

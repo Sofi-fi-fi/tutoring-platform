@@ -17,6 +17,8 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
 		builder.Property(s => s.CityId).HasColumnName("city_id");
 		builder.Property(s => s.SchoolGrade).HasColumnName("school_grade");
 
+		builder.HasIndex(s => s.CityId).HasDatabaseName("idx_student_city_id");
+
 		builder.HasOne(s => s.City)
 			.WithMany(c => c.Students)
 			.HasForeignKey(s => s.CityId)

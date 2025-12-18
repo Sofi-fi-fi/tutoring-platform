@@ -44,6 +44,8 @@ public class TutorConfiguration : IEntityTypeConfiguration<Tutor>
 			.HasColumnName("address")
 			.HasColumnType("text");
 
+		builder.HasIndex(t => t.CityId).HasDatabaseName("idx_tutor_city_id");
+
 		builder.HasOne(t => t.City)
 			.WithMany(c => c.Tutors)
 			.HasForeignKey(t => t.CityId)

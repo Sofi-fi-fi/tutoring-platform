@@ -9,7 +9,12 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
 {
 	public void Configure(EntityTypeBuilder<Schedule> builder)
 	{
-		builder.ToTable("schedule");
+		builder.ToTable("schedule", table =>
+		{
+			table.HasCheckConstraint("schedule_future_date", "date >= CURRENT_DATE");
+			table.HasCheckConstraint("schedule_valid_time_range", "end_time > start_time");
+			table.HasCheckConstraint("schedule_duration_60min", "EXTRACT(EPOCH from (end_time - start_time)) / 60 = 60");
+		});
 
 		builder.HasKey(s => s.ScheduleId);
 		builder.Property(s => s.ScheduleId)
@@ -43,7 +48,10 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
 
 		builder.HasIndex(s => new { s.TutorId, s.Date, s.StartTime, s.EndTime })
 			.IsUnique()
-			.HasDatabaseName("schedule_unique_slot");
+			.HasDatabaseName("idx_schedule_unique_slot");
+
+		builder.HasIndex(s => new { s.TutorId, s.IsAvailable })
+			.HasDatabaseName("idx_schedule_tutor_availability");
 
 		builder.HasOne(s => s.Tutor)
 			.WithMany(t => t.Schedules)
