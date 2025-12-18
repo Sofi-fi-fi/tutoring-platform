@@ -30,5 +30,9 @@ public class TutorSearchDtoValidator : AbstractValidator<TutorSearchDto>
 		RuleFor(field => field)
 			.Must(field => !field.MinPrice.HasValue || !field.MaxPrice.HasValue || field.MinPrice <= field.MaxPrice)
 			.WithMessage("Minimum price cannot be greater than maximum price");
+
+		RuleFor(field => field)
+			.Must(field => field.OnlineOnly is true || field.OfflineOnly is true)
+			.WithMessage("At least one of online or offline availability must be true");
 	}
 }
