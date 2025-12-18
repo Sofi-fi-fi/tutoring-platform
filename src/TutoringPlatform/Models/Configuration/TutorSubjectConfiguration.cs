@@ -35,7 +35,9 @@ public class TutorSubjectConfiguration : IEntityTypeConfiguration<TutorSubject>
 
 		builder.HasIndex(ts => new { ts.TutorId, ts.SubjectId, ts.LevelId })
 			.IsUnique()
-			.HasDatabaseName("ts_unique_combination");
+			.HasDatabaseName("idx_ts_unique_combination");
+
+		builder.HasIndex(ts => ts.SubjectId).HasDatabaseName("idx_tutor_subject_subject_id");
 
 		builder.HasOne(ts => ts.Tutor)
 			.WithMany(t => t.TutorSubjects)

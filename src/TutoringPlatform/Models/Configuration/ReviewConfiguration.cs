@@ -9,7 +9,10 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 {
 	public void Configure(EntityTypeBuilder<Review> builder)
 	{
-		builder.ToTable("review");
+		builder.ToTable("review", table =>
+		{
+			table.HasCheckConstraint("review_rating_range", "rating BETWEEN 1 AND 5");
+		});
 
 		builder.HasKey(r => r.ReviewId);
 		builder.Property(r => r.ReviewId)
@@ -19,8 +22,6 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 		builder.Property(r => r.BookingId)
 			.HasColumnName("booking_id")
 			.IsRequired();
-
-		builder.HasIndex(r => r.BookingId).IsUnique();
 
 		builder.Property(r => r.Rating)
 			.HasColumnName("rating")
@@ -38,6 +39,9 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 			.HasColumnName("is_anonymous")
 			.IsRequired()
 			.HasDefaultValue(false);
+
+		builder.HasIndex(r => r.BookingId).IsUnique();
+		builder.HasIndex(r => r.Rating).HasDatabaseName("idx_review_rating");
 
 		builder.HasOne(r => r.Booking)
 			.WithOne(b => b.Review)

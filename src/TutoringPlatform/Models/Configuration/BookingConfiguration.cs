@@ -28,8 +28,6 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 			.HasColumnName("schedule_id")
 			.IsRequired();
 
-		builder.HasIndex(b => b.ScheduleId).IsUnique();
-
 		builder.Property(b => b.Format)
 			.HasColumnName("format")
 			.IsRequired();
@@ -42,6 +40,9 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 		builder.Property(b => b.CreatedAt)
 			.HasColumnName("created_at")
 			.HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+		builder.HasIndex(b => b.ScheduleId).IsUnique();
+		builder.HasIndex(b => b.StudentId).HasDatabaseName("idx_booking_student_id");
 
 		builder.HasOne(b => b.Student)
 			.WithMany(s => s.Bookings)
