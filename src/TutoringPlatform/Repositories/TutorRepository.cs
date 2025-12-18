@@ -7,26 +7,25 @@ namespace TutoringPlatform.Repositories;
 
 public class TutorRepository(TutoringDbContext context) : Repository<Tutor>(context), ITutorRepository
 {
-	public async Task<Tutor?> GetByIdWithDetailsAsync(int id)
+    public override async Task<Tutor?> GetByIdAsync(int tutorId)
     {
         return await _dbSet
             .Include(t => t.User)
-            .Include(t => t.City)
-            .Include(t => t.TutorSubjects)
-                .ThenInclude(ts => ts.Subject)
-            .Include(t => t.TutorSubjects)
-                .ThenInclude(ts => ts.TeachingLevel)
-            .Include(t => t.Schedules)
-				.ThenInclude(sc => sc.Booking)
-				.ThenInclude(b => b!.Review)
-            .FirstOrDefaultAsync(t => t.TutorId == id);
+            .Where(t => t.TutorId == tutorId)
+            .FirstOrDefaultAsync();
     }
 
+    public override async Task<IEnumerable<Tutor>> GetAllAsync()
+    {
+        return await _dbSet
+            .Include(t => t.User)
+            .ToListAsync();
+    }
+    
     public async Task<IEnumerable<Tutor>> GetByCityAsync(int cityId)
     {
         return await _dbSet
             .Include(t => t.User)
-            .Include(t => t.City)
             .Where(t => t.CityId == cityId)
             .ToListAsync();
     }
@@ -77,9 +76,9 @@ public class TutorRepository(TutoringDbContext context) : Repository<Tutor>(cont
         return await query.ToListAsync();
 	}
 
-    public async Task<IEnumerable<Tutor>> GetTopRatedAsync(int count)
+    public async Task<IEnumerable<(Tutor Tutor, double AverageRating, int ReviewCount)>> GetTopRatedAsync(int count)
     {
-        return await _dbSet
+        var results = await _dbSet
             .Include(t => t.User)
             .Include(t => t.City)
             .Include(t => t.TutorSubjects)
@@ -94,12 +93,16 @@ public class TutorRepository(TutoringDbContext context) : Repository<Tutor>(cont
                 Tutor = t,
                 AverageRating = t.Schedules
                     .Where(s => s.Booking != null && s.Booking.Review != null)
-                    .Average(s => (double?)s.Booking!.Review!.Rating)
+                    .Average(s => (double?)s.Booking!.Review!.Rating) ?? 0,
+                ReviewCount = t.Schedules
+                    .Count(s => s.Booking != null && s.Booking.Review != null)
             })
-            .Where(x => x.AverageRating != null)
+            .Where(x => x.ReviewCount > 0)
             .OrderByDescending(x => x.AverageRating)
+            .ThenByDescending(x => x.ReviewCount)
             .Take(count)
-            .Select(x => x.Tutor)
             .ToListAsync();
+
+        return results.Select(x => (x.Tutor, x.AverageRating, x.ReviewCount));
     }
 }

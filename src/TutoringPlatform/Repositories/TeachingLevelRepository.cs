@@ -13,6 +13,12 @@ public class TeachingLevelRepository(TutoringDbContext context) : Repository<Tea
             .FirstOrDefaultAsync(l => l.Name == name);
     }
 
+    public async Task<TeachingLevel?> GetByPositionAsync(int position)
+    {
+        return await _dbSet
+            .FirstOrDefaultAsync(l => l.Position == position);
+    }
+
     public async Task<IEnumerable<TeachingLevel>> GetOrderedByPositionAsync()
     {
         return await _dbSet
