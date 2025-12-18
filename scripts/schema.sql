@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS "schedule"
         ON DELETE CASCADE,
 
     CONSTRAINT schedule_future_date
-        CHECK (date >= current_date),
+        CHECK (date >= CURRENT_DATE),
     CONSTRAINT schedule_valid_time_range
         CHECK (end_time > start_time),
     CONSTRAINT schedule_duration_60min
@@ -189,7 +189,18 @@ CREATE TABLE IF NOT EXISTS "review"
         FOREIGN KEY (booking_id) 
         REFERENCES "booking" (booking_id) 
         ON DELETE CASCADE
+
+    CONSTRAINT review_rating_range
+        CHECK (rating BETWEEN 1 AND 5)
 );
+
+
+CREATE INDEX IF NOT EXISTS idx_student_city_id ON "student"(city_id);
+CREATE INDEX IF NOT EXISTS idx_tutor_city_id ON "tutor"(city_id);
+CREATE INDEX IF NOT EXISTS idx_tutor_subject_subject_id ON "tutor_subject"(subject_id);
+CREATE INDEX IF NOT EXISTS idx_schedule_tutor_availability ON "schedule"(tutor_id, is_available);
+CREATE INDEX IF NOT EXISTS idx_booking_student_id ON "booking"(student_id);
+CREATE INDEX IF NOT EXISTS idx_review_rating ON "review"(rating);
 
 
 -- To drop all tables (if needed), uncomment the block below
