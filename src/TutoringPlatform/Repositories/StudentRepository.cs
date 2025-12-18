@@ -7,20 +7,26 @@ namespace TutoringPlatform.Repositories;
 
 public class StudentRepository(TutoringDbContext context) : Repository<Student>(context), IStudentRepository
 {
-	public async Task<Student?> GetByIdWithDetailsAsync(int studentId)
+	public override async Task<Student?> GetByIdAsync(int studentId)
 	{
 		return await _dbSet
-			.Include(s => s.User)
-			.Include(s => s.City)
-			.Include (s => s.Bookings)
-			.Where(s => s.StudentId == studentId)
-			.FirstOrDefaultAsync();
+		  .Include(s => s.User)
+		  .Where(s => s.StudentId == studentId)
+		  .FirstOrDefaultAsync();
+	}
+
+	public override async Task<IEnumerable<Student>> GetAllAsync()
+	{
+		return await _dbSet
+		  .Include(s => s.User)
+		  .ToListAsync();
 	}
 
 	public async Task<IEnumerable<Student>> GetByCityIdAsync(int cityId)
 	{
 		return await _dbSet
-			.Where(s => s.CityId == cityId)
-			.ToListAsync();
+		  .Include(s => s.User)
+		  .Where(s => s.CityId == cityId)
+		  .ToListAsync();
 	}
 }

@@ -7,13 +7,11 @@ namespace TutoringPlatform.Repositories;
 
 public class ReviewRepository(TutoringDbContext context) : Repository<Review>(context), IReviewRepository
 {
-	public async Task<IEnumerable<Review>> GetByTutorIdAsync(int tutorId)
+	public async Task<Review?> GetByBookingAsync(int bookingId)
 	{
 		return await _dbSet
-			.Include(r => r.Booking)
-				.ThenInclude(b => b.Schedule)
-			.Where(r => r.Booking.Schedule.TutorId == tutorId)
-			.ToListAsync();
+		  .Where(r => r.BookingId == bookingId)
+		  .FirstOrDefaultAsync();
 	}
 
 	public async Task<IEnumerable<Review>> GetByStudentIdAsync(int studentId)
@@ -23,12 +21,13 @@ public class ReviewRepository(TutoringDbContext context) : Repository<Review>(co
 			.Where(r => r.Booking.StudentId == studentId)
 			.ToListAsync();
 	}
-
-	public async Task<Review?> GetByBookingIdAsync(int bookingId)
+	public async Task<IEnumerable<Review>> GetByTutorIdAsync(int tutorId)
 	{
-		return await _dbSet 
-			.Where(r => r.BookingId == bookingId)
-			.FirstOrDefaultAsync();
+		return await _dbSet
+			.Include(r => r.Booking)
+				.ThenInclude(b => b.Schedule)
+			.Where(r => r.Booking.Schedule.TutorId == tutorId)
+			.ToListAsync();
 	}
 
 	public async Task<IEnumerable<Review>> GetByRatingAsync(int rating)
