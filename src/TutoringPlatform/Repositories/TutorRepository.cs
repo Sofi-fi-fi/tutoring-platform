@@ -46,14 +46,14 @@ public class TutorRepository(TutoringDbContext context) : Repository<Tutor>(cont
             query = query.Where(t => t.CityId == cityId.Value);
         }
 
-        if (onlineOnly == true)
+        if (onlineOnly.HasValue)
         {
-            query = query.Where(t => t.OnlineAvailable);
+            query = query.Where(t => t.OnlineAvailable == onlineOnly.Value);
         }
 
-        if (offlineOnly == true)
+        if (offlineOnly.HasValue)
         {
-            query = query.Where(t => t.OfflineAvailable);
+            query = query.Where(t => t.OfflineAvailable == offlineOnly.Value);
         }
 
         if (subjectId.HasValue)
